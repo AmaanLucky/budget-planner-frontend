@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Apply background image properly */
+.auth-container {
+    background: url('/images/auth-bg.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* ✅ Add a slight dark overlay for better visibility */
+  .auth-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+  }
+  
+  /* ✅ Improve form animation */
+  .auth-form {
+    position: relative;
+    z-index: 10;
+    max-width: 400px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* ✅ Make form pop on hover */
+  .auth-form:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  

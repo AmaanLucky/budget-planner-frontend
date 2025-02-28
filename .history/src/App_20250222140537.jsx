@@ -1,0 +1,52 @@
+import { useState } from "react";
+import BudgetForm from "./components/BudgetForm";
+import ExpenseList from "./components/ExpenseList";
+
+const App = () => {
+  const [budget, setBudget] = useState(0);
+  const [expenses, setExpenses] = useState([]);
+
+  const handleAddExpense = (expense) => {
+    setExpenses([...expenses, expense]);
+  };
+
+  const increaseBudget = () =>{
+    setBudget((prevBudget)=>prevBudget+5)
+  }
+
+  const totalExpenses = expenses.reduce((total, expense) => total + expense.amount, 0);
+  const isOverBudget = totalExpenses > budget;
+
+  return (
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-gray-100 shadow-md rounded">
+      <h1 className="text-2xl font-bold text-center mb-4">Personal Budget Planner</h1>
+      
+      {/* Budget Input */}
+      <div className="mb-4">
+        <label className="block text-gray-700 font-medium">Set Monthly Budget ($)</label>
+        <input
+          type="number"
+          value={budget}
+          onChange={(e) => setBudget(parseFloat(e.target.value) || 0)}
+          className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+          placeholder="Enter your budget"
+          <button classname="mt-2 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition" onClick={increaseBudget}></button>
+        />
+      </div>
+
+      <BudgetForm onAddExpense={handleAddExpense} />
+      <ExpenseList expenses={expenses} />
+
+      {/* Budget Summary */}
+      <div className="mt-4 p-4 bg-white rounded shadow-md">
+        <p className="text-lg font-medium">Total Expenses: ${totalExpenses.toFixed(2)}</p>
+        <p className="text-lg font-medium">Remaining Budget: ${Math.max(budget - totalExpenses, 0).toFixed(2)}</p>
+        {isOverBudget && (
+          <p className="text-red-500 font-bold">Warning: You have exceeded your budget!</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default App;

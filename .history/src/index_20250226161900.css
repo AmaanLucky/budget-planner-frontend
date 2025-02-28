@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Fullscreen background with proper sizing */
+.auth-container {
+    background: url('/images/auth-bg.jpg') center/cover no-repeat fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* ✅ Light overlay for better readability */
+  .auth-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* ✅ Center the form & add a glassmorphic effect */
+  .auth-form {
+    position: relative;
+    z-index: 10;
+    max-width: 400px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15); /* Glass effect */
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* ✅ Hover effect */
+  .auth-form:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* ✅ Ensure text is readable */
+  .auth-form h2,
+  .auth-form p,
+  .auth-form button {
+    color: white;
+  }
+  
+  .auth-form input {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+  }
+  
+  /* ✅ Ensure input focus works */
+  .auth-form input:focus {
+    background: white;
+    color: black;
+  }
+  
