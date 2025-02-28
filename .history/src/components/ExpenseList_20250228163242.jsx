@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
-import { FaUtensils, FaBus, FaShoppingCart, FaMoneyBillWave, FaTag, FaQuestion, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaUtensils, FaBus, FaShoppingCart, FaMoneyBillWave, FaTag, FaQuestion } from "react-icons/fa";
 import { saveAs } from "file-saver";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import Papa from "papaparse";
-import { useState } from "react"; // Import useState for managing collapsed state
 
 // Define category icons
 const categoryIcons = {
@@ -34,17 +33,6 @@ const ExpenseList = ({ expenses = [], onDeleteExpense, darkMode }) => {
 
   // Calculate the overall total
   const overallTotal = expenses.reduce((sum, exp) => sum + exp.amount, 0);
-
-  // State to manage collapsed categories
-  const [collapsedCategories, setCollapsedCategories] = useState({});
-
-  // Toggle collapse for a category
-  const toggleCollapse = (category) => {
-    setCollapsedCategories((prev) => ({
-      ...prev,
-      [category]: !prev[category], // Toggle the collapsed state
-    }));
-  };
 
   // Export expenses as CSV
   const exportCSV = () => {
@@ -149,50 +137,38 @@ const ExpenseList = ({ expenses = [], onDeleteExpense, darkMode }) => {
         <ul className="mt-2 space-y-4">
           {Object.entries(groupedExpenses).map(([category, data]) => (
             <li key={category} className="border-b pb-2 border-gray-300 dark:border-gray-600">
-              <div
-                className="flex items-center justify-between mb-2 cursor-pointer"
-                onClick={() => toggleCollapse(category)} // Toggle collapse on click
-              >
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center space-x-2">
                   {categoryIcons[category] || <FaQuestion className="text-gray-400 dark:text-gray-300" />}
                   <span className="font-medium text-lg">{category}</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-lg text-gray-700 dark:text-gray-300">
-                    ${data.total.toFixed(2)}
-                  </span>
-                  {collapsedCategories[category] ? (
-                    <FaChevronUp className="text-gray-500 dark:text-gray-300" />
-                  ) : (
-                    <FaChevronDown className="text-gray-500 dark:text-gray-300" />
-                  )}
-                </div>
+                <span className="font-semibold text-lg text-gray-700 dark:text-gray-300">
+                  ${data.total.toFixed(2)}
+                </span>
               </div>
-              {collapsedCategories[category] && ( // Show expenses if category is expanded
-                <ul className="pl-6 space-y-2">
-                  {data.items.map((expense) => (
-                    <li key={expense._id} className="grid grid-cols-3 items-center py-2 px-2 gap-4">
-                      <div className="flex items-center space-x-2">
-                        {getExpenseIcon(expense)}
-                        <span className="font-medium">{expense.title}</span>
-                      </div>
-                      <div className="text-right font-semibold min-w-[100px]">
-                        <span className={darkMode ? "text-gray-200" : "text-gray-700"}>
-                          ${expense.amount.toFixed(2)}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <button
-                          onClick={() => onDeleteExpense(expense._id)}
-                          className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
-                        >
-                          ❌
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul className="pl-6 space-y-2">
+                {data.items.map((expense) => (
+                  <li key={expense._id} className="grid grid-cols-3 items-center py-2 px-2 gap-4">
+                    <div className="flex items-center space-x-2">
+                      {getExpenseIcon(expense)}
+                      <span className="font-medium">{expense.title}</span>
+                    </div>
+                    <div className="text-right font-semibold min-w-[100px]">
+                      <span className={darkMode ? "text-gray-200" : "text-gray-700"}>
+                        ${expense.amount.toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <button
+                        onClick={() => onDeleteExpense(expense._id)}
+                        className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                      >
+                        ❌
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
           <li className="font-bold text-lg text-right mt-4">Overall Total: ${overallTotal.toFixed(2)}</li>
