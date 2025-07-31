@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const BudgetForm = ({ onAddExpense, darkMode, budget, remainingBudget }) => {
-  // const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
-
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -18,9 +16,9 @@ const BudgetForm = ({ onAddExpense, darkMode, budget, remainingBudget }) => {
 
     if (value < 0) {
       setError("❌ No negative numbers allowed!");
-      setAmount(""); // Reset input field
+      setAmount(""); 
     } else {
-      setError(""); // Clear error when valid
+      setError(""); 
       setAmount(value);
     }
   };
@@ -41,9 +39,9 @@ const BudgetForm = ({ onAddExpense, darkMode, budget, remainingBudget }) => {
     let finalCategory = category;
     if (category === "Other" && customCategory) {
       finalCategory = customCategory;
-      setCustomCategories((prev) => [...new Set([...prev, customCategory])]); // 🔹 Store new category
+      setCustomCategories((prev) => [...new Set([...prev, customCategory])]);
     }
-    if (!category) finalCategory = "Uncategorized"; // 🔹 Default category
+    if (!category) finalCategory = "Uncategorized";
 
     onAddExpense({ title, amount: Number(amount), category: finalCategory });
 
@@ -88,7 +86,7 @@ const BudgetForm = ({ onAddExpense, darkMode, budget, remainingBudget }) => {
         disabled={isDisabled}
         required
       />
-      {/* 🔹 Show Error Message */}
+  
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 
 

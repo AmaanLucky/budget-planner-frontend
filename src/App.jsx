@@ -15,10 +15,8 @@ import useBudgetHandler from "./hooks/useBudgetHandler";
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
 
-  // ✅ Authentication Logic
   const { isAuthenticated, user, handleLogout, handleAuthSuccess, showSignup, setShowSignup, loading } = useAuthHandler();
 
-  // ✅ Budget & Expense Logic
   const {
     budget,
     setBudget,
@@ -31,9 +29,8 @@ const App = () => {
     handleDeleteExpense,
   } = useBudgetHandler(isAuthenticated);
 
-  // ✅ Show a loading screen while verifying authentication
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">🔄 Loading...</div>;
+    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
   }
 
   return (
@@ -85,11 +82,7 @@ const App = () => {
         <AnimatePresence>
           <motion.div 
             key={showSignup ? "signup" : "login"}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="flex flex-col justify-center items-center min-h-screen bg-gray-100"
+            className="flex flex-col justify-center items-center min-h-screen bg-gray-500"
           >
             {showSignup ? (
               <SignupForm onAuthSuccess={handleAuthSuccess} onToggle={() => setShowSignup(false)} />

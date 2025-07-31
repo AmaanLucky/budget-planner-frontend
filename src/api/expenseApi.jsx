@@ -1,22 +1,21 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://budget-planner-backend-07kq.onrender.com/expenses"; // 🔹 Ensure backend is running
+const API_BASE_URL = "https://budget-planner-backend-07kq.onrender.com/expenses";
 
-// 🔹 Function to get token from localStorage
 const getAuthHeader = () => {
   const token = localStorage.getItem("token");
   if (!token) {
-    console.error("❌ No token found! Unauthorized request.");
-    return null; // 🔹 Prevent unauthorized requests
+    console.error("No token found! Unauthorized request.");
+    return null;
   }
   return { Authorization: `Bearer ${token}` };
 };
 
-// ✅ Fetch all expenses (Only for logged-in user)
+
 export const getExpenses = async () => {
   try {
     const headers = getAuthHeader();
-    if (!headers) return []; // 🔹 Stop request if no token
+    if (!headers) return []; 
 
     const response = await axios.get(API_BASE_URL, { headers });
     return response.data;
@@ -26,7 +25,6 @@ export const getExpenses = async () => {
   }
 };
 
-// ✅ Add a new expense
 export const addExpense = async (expense) => {
   try {
     const headers = getAuthHeader();
@@ -40,7 +38,6 @@ export const addExpense = async (expense) => {
   }
 };
 
-// ✅ Delete an expense
 export const deleteExpense = async (expenseId) => {
   try {
     const headers = getAuthHeader();
@@ -54,7 +51,6 @@ export const deleteExpense = async (expenseId) => {
   }
 };
 
-// ✅ Update an expense
 export const updateExpense = async (expenseId, updatedExpense) => {
   try {
     const headers = getAuthHeader();
@@ -68,14 +64,13 @@ export const updateExpense = async (expenseId, updatedExpense) => {
   }
 };
 
-// 🔹 Handle authentication errors (Auto logout if token is invalid)
 const handleAuthError = (error) => {
-  console.error("❌ API Error:", error.response?.data || error.message);
+  console.error("API Error:", error.response?.data || error.message);
 
   if (error.response?.status === 401) {
-    console.warn("⚠️ Unauthorized! Logging out...");
+    console.warn("Unauthorized! Logging out...");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.reload(); // 🔹 Force logout & refresh
+    window.location.reload(); 
   }
 };

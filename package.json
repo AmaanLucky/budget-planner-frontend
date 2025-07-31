@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "bpfrontend": "file:",
+    "cors": "^2.8.5",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.4.7",
     "jspdf": "^3.0.0",

@@ -18,7 +18,7 @@ const useBudgetHandler = (isAuthenticated) => {
           const data = await getExpenses();
           if (data) setExpenses(data);
         } catch (error) {
-          console.error("❌ Error fetching expenses:", error);
+          console.error("Error fetching expenses:", error);
         }
       };
       fetchExpenses();
@@ -31,7 +31,7 @@ const useBudgetHandler = (isAuthenticated) => {
 
   const handleAddExpense = async (expense) => {
     if (remainingBudget < expense.amount) {
-      alert("❌ Cannot add expense! Exceeds remaining budget.");
+      alert("Cannot add expense! Exceeds remaining budget.");
       return;
     }
 
@@ -39,7 +39,7 @@ const useBudgetHandler = (isAuthenticated) => {
       const newExpense = await addExpense(expense);
       if (newExpense) setExpenses([...expenses, newExpense]);
     } catch (error) {
-      console.error("❌ Error adding expense:", error);
+      console.error("Error adding expense:", error);
     }
   };
 

@@ -29,7 +29,7 @@ const useAuthHandler = () => {
           handleLogout();
         }
       } catch (error) {
-        console.error("❌ Token verification failed:", error);
+        console.error("Token verification failed:", error);
         handleLogout();
       } finally {
         setLoading(false);
@@ -40,10 +40,10 @@ const useAuthHandler = () => {
 
   const handleAuthSuccess = (token, userData) => {
     if (!token) {
-      console.error("❌ No token received!");
+      console.error(" No token received!");
       return;
     }
-    console.log("✅ Authentication successful! Storing token and user data.");
+    console.log("Authentication successful! Storing token and user data.");
     setUser(userData);
     setIsAuthenticated(true);
     
@@ -54,7 +54,7 @@ const useAuthHandler = () => {
   };
 
   const handleLogout = () => {
-    console.log("❌ Logging out...");
+    console.log(" Logging out...");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);

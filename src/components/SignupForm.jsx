@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { signup } from "../api/authApi";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -23,11 +22,14 @@ const SignupForm = ({ onAuthSuccess, onToggle }) => {
   };
 
   return (
-    <motion.div
+    <div className="flex flex-col items-center max-w-md w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <img src="/images/logo.png" alt="Budget Planner Logo" className="w-24 mb-4" />
+
+      <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="max-w-md w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg"
+      className="max-w-md w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg"
     >
       <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-5">
         Create an Account
@@ -37,7 +39,7 @@ const SignupForm = ({ onAuthSuccess, onToggle }) => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="relative">
-          <FaUser className="absolute left-3 top-3 text-gray-400 dark:text-gray-300" />
+          <FaUser className="absolute left-3 top-4 text-gray-400 dark:text-gray-300" />
           <input
             type="text"
             name="name"
@@ -50,7 +52,7 @@ const SignupForm = ({ onAuthSuccess, onToggle }) => {
         </div>
 
         <div className="relative">
-          <FaEnvelope className="absolute left-3 top-3 text-gray-400 dark:text-gray-300" />
+          <FaEnvelope className="absolute left-3 top-4 text-gray-400 dark:text-gray-300" />
           <input
             type="email"
             name="email"
@@ -63,7 +65,7 @@ const SignupForm = ({ onAuthSuccess, onToggle }) => {
         </div>
 
         <div className="relative">
-          <FaLock className="absolute left-3 top-3 text-gray-400 dark:text-gray-300" />
+          <FaLock className="absolute left-3 top-4 text-gray-400 dark:text-gray-300" />
           <input
             type="password"
             name="password"
@@ -87,12 +89,8 @@ const SignupForm = ({ onAuthSuccess, onToggle }) => {
         </button>
       </p>
     </motion.div>
+  </div>
   );
-};
-
-SignupForm.propTypes = {
-  onAuthSuccess: PropTypes.func.isRequired,
-  onToggle: PropTypes.func.isRequired,
 };
 
 export default SignupForm;
