@@ -21,7 +21,7 @@ const useAuthHandler = () => {
       }
 
       try {
-        const userData = await verifyToken(token);
+        const userData = await verifyToken();
         if (userData) {
           setUser(userData);
           setIsAuthenticated(true);
@@ -43,7 +43,6 @@ const useAuthHandler = () => {
       console.error(" No token received!");
       return;
     }
-    console.log("Authentication successful! Storing token and user data.");
     setUser(userData);
     setIsAuthenticated(true);
     
@@ -54,7 +53,6 @@ const useAuthHandler = () => {
   };
 
   const handleLogout = () => {
-    console.log(" Logging out...");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);

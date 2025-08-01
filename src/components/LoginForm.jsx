@@ -1,12 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { login } from "../api/authApi";
+import { login, demoLogin } from "../api/authApi";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const LoginForm = ({ onAuthSuccess, onToggle }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [isDemoLoading, setIsDemoLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,6 +22,23 @@ const LoginForm = ({ onAuthSuccess, onToggle }) => {
     } 
     else {
       setError("Login failed! Check credentials.");
+    }
+  };
+
+  const handleDemo = async () => {
+    setError("");
+    setIsDemoLoading(true);
+    try {
+      const data = await demoLogin();
+      if (data?.token) {
+        onAuthSuccess(data.token, data.user);
+      } else {
+        setError("Demo login failed! Please try again.");
+      }
+    } catch {
+      setError("Demo login failed! Please try again.");
+    } finally {
+      setIsDemoLoading(false);
     }
   };
 
@@ -74,6 +92,15 @@ const LoginForm = ({ onAuthSuccess, onToggle }) => {
         Don&apos;t have an account?{" "}
         <button onClick={onToggle} className="text-blue-600 hover:underline font-semibold">
           Sign Up
+        </button>
+      </p>
+      <p className="text-center mt-4 text-gray-600 dark:text-gray-300">
+        <button 
+          onClick={handleDemo} 
+          disabled={isDemoLoading}
+          className="text-blue-300 hover:underline font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isDemoLoading ? "Loading Demo..." : "TRY DEMO !"}
         </button>
       </p>
     </motion.div>

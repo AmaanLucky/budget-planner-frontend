@@ -17,7 +17,8 @@ const useBudgetHandler = (isAuthenticated) => {
         try {
           const data = await getExpenses();
           if (data) setExpenses(data);
-        } catch (error) {
+        } 
+        catch (error) {
           console.error("Error fetching expenses:", error);
         }
       };
@@ -38,7 +39,8 @@ const useBudgetHandler = (isAuthenticated) => {
     try {
       const newExpense = await addExpense(expense);
       if (newExpense) setExpenses([...expenses, newExpense]);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error adding expense:", error);
     }
   };
